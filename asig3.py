@@ -1,4 +1,4 @@
-sets create intersection and diffrence of a set
+#sets create intersection and diffrence of a set
 n=set(input("enter element 1: "))
 m=set(input("enter element 2:"))
 print (n)
