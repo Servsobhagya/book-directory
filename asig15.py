@@ -10,7 +10,7 @@
 
 import pymysql as py
 
-db=py.connect("localhost","root","amit9729231169","library")
+db=py.connect("localhost","root","**","library")
 
 book='create table book(book_id char(40),title_id char(40),location char(40),grene char(40))'
 titles='create table titles(title_id int,title char(40),ISBN char(40),publisher_id int,publication_year int)'
@@ -45,14 +45,14 @@ db.close()
 
 import pymysql as py
 
-db=py.connect("localhost","root","servsobhagya2@gmail.com","library")
+db=py.connect("localhost","root","**","library")
 cursor=db.cursor()
 cursor.execute("insert into book values(001,'searching for mountain','j&k','jammu')")
 cursor.execute("insert into titles values(002,'looking for hill','1005',201,2005)")
 cursor.execute("insert into publishers values(203214,'nepoleon','india',201,2010)")
 cursor.execute("insert into zip_codes values(20465,'ladakh',5042135)")
 cursor.execute("insert into authors_titles values('201',10654,454215)")
-cursor.execute("insert into authors values(6315425,'prakash','null','raut')")
+cursor.execute("insert into authors values(6315425,'sham','null','pandey')")
 cursor.execute("select * from book")
 print(cursor.fetchall())
 db.commit()
@@ -63,7 +63,7 @@ db.close()
 
 import pymysql as py
 
-db=py.connect("localhost","root","amit9729231169","library")
+db=py.connect("localhost","root","**","library")
 
 cursor=db.cursor()
 cursor.execute("select * from book")
