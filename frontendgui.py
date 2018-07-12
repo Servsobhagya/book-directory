@@ -3,6 +3,79 @@ from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
 from tkinter.scrolledtext import ScrolledText
+import sqlite3
+
+conn=sqlite3.connect("directory.db")
+c=conn.cursor()
+c.execute("CREATE TABLE IF NOT EXISTS book(Title char,Author int,Year int,ISBN int)")
+
+
+def view_all():
+    conn = sqlite3.connect("directory.db")
+    c = conn.cursor()
+    c.execute("select * from book");
+    l.delete(0, END)
+    for row in c.fetchall():
+        l.insert(END,row)
+    conn.commit()
+
+def Search_Entry():
+    conn = sqlite3.connect("directory.db")
+    c = conn.cursor()
+    p=entry1.get()
+    q=entry2.get()
+    rd=entry3.get()
+    s=entry4.get()
+    l.delete(0, END)
+    c.execute("SELECT * FROM book WHERE Title=? or Author=? or Year=? or ISBN=?",(p,q,rd,s))
+    for row in c.fetchall():
+        l.insert(END, row)
+    conn.commit()
+
+def add_entry():
+    conn = sqlite3.connect("directory.db")
+    c = conn.cursor()
+    p=entry1.get()
+    q=entry2.get()
+    rd=entry3.get()
+    s=entry4.get()
+    c.execute("insert into book(Title,Author,Year,ISBN) VALUES (?,?,?,?)",(p,q,rd,s))
+    conn.commit()
+    view_all()
+
+def Update_selected():
+    conn = sqlite3.connect("directory.db")
+    c = conn.cursor()
+    p=entry1.get()
+    q=entry2.get()
+    rd=entry3.get()
+    s=entry4.get()
+    t = l.get(ACTIVE)
+    x = t[3]
+    c.execute("UPDATE book SET Title=?,Author=?,Year=?,ISBN=? WHERE ISBN=?",(p,q,rd,s,x))
+    conn.commit()
+    view_all()
+
+def delete():
+    conn = sqlite3.connect("directory.db")
+    c = conn.cursor()
+    selection=l.curselection()
+    if selection:
+        t=l.get(ACTIVE)
+        i=t[3]
+        c.execute("DELETE FROM book WHERE ISBN=?",(i,));
+        conn.commit()
+        view_all()
+    else:
+        pass
+
+def exit():
+    result=messagebox.askyesno("Alert","do you want to exit")
+    if result==True:
+        sys.exit()
+    else:
+        pass
+
 
 root=Tk()
 root.title("Boook Directory")
