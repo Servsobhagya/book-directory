@@ -9,7 +9,7 @@ conn=sqlite3.connect("directory.db")
 c=conn.cursor()
 c.execute("CREATE TABLE IF NOT EXISTS book(Title char,Author int,Year int,ISBN int)")
 
-
+s=StringVar()
 def view_all():
     conn = sqlite3.connect("directory.db")
     c = conn.cursor()
@@ -42,6 +42,7 @@ def add_entry():
     c.execute("insert into book(Title,Author,Year,ISBN) VALUES (?,?,?,?)",(p,q,rd,s))
     conn.commit()
     view_all()
+    s.set()
 
 def Update_selected():
     conn = sqlite3.connect("directory.db")
@@ -84,22 +85,22 @@ root.resizable(True,True)
 
 label1=Label(root,text="Title")
 label1.grid(row=0,column=0)
-entry1=Entry(width=35)
+entry1=Entry(width=35,textvariable=s)
 entry1.grid(row=0,column=1)
 
 label2=Label(root,text="Author")
 label2.grid(row=0,column=2)
-entry2=Entry(root,width=35)
+entry2=Entry(root,width=35,textvariable=s)
 entry2.grid(row=0,column=3)
 
 label3=Label(root,text="Year")
 label3.grid(row=1,column=0)
-entry3=Entry(root,width=35)
+entry3=Entry(root,width=35,textvariable=s)
 entry3.grid(row=1,column=1)
 
 label4=Label(root,text="ISBN    ")
 label4.grid(row=1,column=2)
-entry4=Entry(root,width=35)
+entry4=Entry(root,width=35,textvariable=s)
 entry4.grid(row=1,column=3)
 
 b1=Button(root,text="View All",width=20,height=2)
